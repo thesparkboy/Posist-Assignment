@@ -8,7 +8,7 @@ public class OwnerNode {
 	private static long totalSum;
 	private HashSet<Integer> owned;
 	
-	private static final String WRONG_VALUE_ADDEDD "Please check the value entered!!"
+	private static final String WRONG_VALUE_ADDEDD "Please check the value entered!!";
 
 	public OwnerNode(final String name) {
 		this.name = name;
