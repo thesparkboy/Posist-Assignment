@@ -2,12 +2,13 @@
 public class App {
 
 	public static void main(String[] args) {
-
-		OwnerNode o1 = new OwnerNode("o1");
+		final String O1 = "o1";
+		
+		final OwnerNode o1 = new OwnerNode(O1);
 
 		// Task 1
 		// created genesis node
-		Node genesis = o1.addNode(null, null, 30);
+		final Node genesis = o1.addNode(null, null, 30);
 
 		// Task 2
 		// an empty set of child nodes is created immediately when a node is
@@ -16,15 +17,16 @@ public class App {
 
 		// Task 3
 		// Child nodes are generated from the genesis node
-		Node b = genesis.addChild(o1, genesis, 17);
-		Node c = genesis.addChild(o1, genesis, 10);
+		final Node b = genesis.addChild(o1, genesis, 17);
+		final Node c = genesis.addChild(o1, genesis, 10);
 		// creating Node d will generate an error because the sum will exceed
 		// the genesis value.
 		// Node d = genesis.addChild(o1, genesis, 7);
 
 		// Task 4
 		// the encryption key is stored in the hash variable
-		System.out.println(b.data.hash);
+		if (b != null && b.data != null && b.data.hash != null)
+ 		    System.out.println(b.data.hash);
 
 		// Task 5
 		// the owner of the node is verified using the hash present in the data
@@ -34,14 +36,15 @@ public class App {
 		// Task 6
 		// the value of a node is edited using chageValue function
 		b.changeValue(15, genesis);
-		System.out.println(b.data.value);
+		if (b != null && b.data != null && b.data.value != null)
+			System.out.println(b.data.value);
 		// if the value changed will be greater than the parent,then error will
 		// be shown. For eg - 
 		// b.changeValue(30, genesis);
 
 		// Task 7
 		// The ownership is transferred and verified
-		OwnerNode o2 = new OwnerNode("o2");
+		final OwnerNode o2 = new OwnerNode("o2");
 		genesis.transferOwnership(o1, o2);
 		System.out.println(o2.authenticateOwner(genesis));
 
