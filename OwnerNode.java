@@ -2,19 +2,21 @@ import java.util.HashSet;
 
 public class OwnerNode {
 
-	String name;
-	int ownerId;
-	static int ownerCount = 0;
-	static long totalSum;
-	HashSet<Integer> owned;
+	private String name;
+	private int ownerId;
+	private static int ownerCount = 0;
+	private static long totalSum;
+	private HashSet<Integer> owned;;
+	
+	private static final String WRONG_VALUE_ADDEDD "Please check the value entered!!";
 
-	OwnerNode(String name) {
+	public OwnerNode(final String name) {
 		this.name = name;
 		this.ownerId = ++ownerCount;
 		this.owned = new HashSet<Integer>();
 	}
 
-	float getRem(Node n) {
+	float getRem(final Node n) {
 		float sum = 0;
 		for (Node x : n.childNodes) {
 			sum += x.data.value;
@@ -22,11 +24,8 @@ public class OwnerNode {
 		return n.data.value - sum;
 	}
 
-	public boolean authenticateOwner(Node x) {
-		if (this.owned.contains(x.data.hash)) {
-			return true;
-		}
-		return false;
+	public boolean authenticateOwner(final Node x) {
+		return this.owned.contains(x.data.hash) ? true: false;
 	}
 
 	Node addNode(Node p, Node g, float d) {
@@ -34,7 +33,7 @@ public class OwnerNode {
 			totalSum += d;
 			return new Node(this, p, g, d);
 		}
-		System.out.println("Please check the value entered!!");
+		System.out.println(WRONG_VALUE_ADDEDD);
 		return null;
 	}
 
