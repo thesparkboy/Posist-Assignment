@@ -6,7 +6,10 @@ import java.util.Date;
 // This class itself contains the nodeData class which contains information about the data of the node.
 
 public class Node {
-
+	
+	private static final ERROR = "Error!!";
+	private static final VALUE_LESS_THAN_REMAINING_VALUE = "The value can't be changed because it is less than the remaining value of the parent!!";
+	
 	Date TimeStamp;
 	dataNode data;
 	int nodeNumber;
@@ -23,7 +26,7 @@ public class Node {
 		String name;
 		int hash;
 
-		dataNode(OwnerNode o, float val) {
+		dataNode(final OwnerNode o,final float val) {
 			this.ownerId = o.ownerId;
 			this.value = val;
 			this.name = o.name;
@@ -32,7 +35,7 @@ public class Node {
 		}
 	}
 
-	Node(OwnerNode o, Node genesis, Node parent, float value) {
+	Node(final OwnerNode o,final Node genesis,final Node parent,final float value) {
 		if (parent != null && value > getRem(parent)) {
 			System.out.println("Error, Node Can't be created!");
 		}
@@ -42,8 +45,7 @@ public class Node {
 		this.nodeId = hash() + "";
 		this.referenceNode = parent;
 		this.genesisReferenceNode = genesis;
-		this.combinedData = TimeStamp + "" + data.value + "" + data.ownerId + "" + nodeNumber + "" + referenceNode + ""
-				+ genesisReferenceNode + "" + childNodes;
+		this.combinedData = String.format( "%s%s%s%s%s%s%s", TimeStamp, data.value, data.ownerId, nodeNumber, referenceNode, genesisReferenceNode, childNodes); 
 		this.hashValue = combinedData.hashCode();
 	}
 
@@ -57,9 +59,8 @@ public class Node {
 
 	float changeValue(float x, Node parent) {
 		if (getRem(parent) < x - this.data.value) {
-			System.out.println("Error!!");
-			System.out
-					.println("The value can't be changed because it is less than the remaining value of the parent!!");
+			System.out.println(ERROR);
+			System.out.println(VALUE_LESS_THAN_REMAINING_VALUE);
 			return 0;
 		}
 		return this.data.value = x;
@@ -73,7 +74,7 @@ public class Node {
 	}
 
 	public Node addChild(OwnerNode o, Node genesis, float val) {
-		Node newNode = new Node(o, this, genesis, val);
+		final Node newNode = new Node(o, this, genesis, val);
 		this.childNodes.add(newNode);
 		return newNode;
 	}
